@@ -24,3 +24,24 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Hero Section Styles */
+.heroTitle {
+  font-family: "Inter", sans-serif;
+  font-weight: 900;
+  font-size: clamp(4rem, 12vw, 8rem);
+  line-height: 0.8;
+  letter-spacing: -0.02em;
+}
+
+.heroSubtitle {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: clamp(3rem, 10vw, 6rem);
+  line-height: 0.8;
+  letter-spacing: -0.01em;
+  -webkit-text-stroke: 2px white;
+  -webkit-text-fill-color: transparent;
+  text-stroke: 2px white; /* Fallback */
+  color: transparent; /* Fallback */
+}

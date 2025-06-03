@@ -1,0 +1,273 @@
+/* Typography Styles */
+
+.hero-title {
+  font-family: "Inter", sans-serif;
+  font-weight: 900;
+  font-size: clamp(4rem, 12vw, 8rem);
+  line-height: 0.8;
+  letter-spacing: -0.02em;
+}
+
+.hero-subtitle {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: clamp(3rem, 10vw, 6rem);
+  line-height: 0.8;
+  letter-spacing: -0.01em;
+  -webkit-text-stroke: 2px white;
+  -webkit-text-fill-color: transparent;
+  text-stroke: 2px white;
+  color: transparent;
+}
+/* Button Styles */
+.contact-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.contact-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.contact-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.contact-button:hover::before {
+  left: 100%;
+}
+
+.contact-button:hover .arrow-icon {
+  transform: translateX(4px);
+}
+
+.arrow-icon {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: clamp(2.5rem, 10vw, 5rem);
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1.5rem, 8vw, 4rem);
+    -webkit-text-stroke: 1.5px white;
+  }
+
+  .contact-button {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  .marquee-item {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: clamp(2rem, 12vw, 4rem);
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1.2rem, 10vw, 3rem);
+    -webkit-text-stroke: 1px white;
+  }
+
+  .contact-button {
+    padding: 0.625rem 1rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* Performance optimizations */
+@media (prefers-reduced-motion: reduce) {
+  .contact-button,
+  .arrow-icon,
+  .marquee-item,
+  .marquee-item__overlay,
+  .marquee-item__image {
+    transition: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .hero-title {
+    background: white;
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
+
+  .contact-button {
+    border-color: white;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .marquee-item__overlay {
+    opacity: 0.1;
+  }
+}
+{
+        .marquee-container {
+          position: absolute;
+          bottom: -15vh;
+          left: 0;
+          right: 0;
+          height: 60vh;
+          overflow: hidden;
+          --rotate: ${rotateIntensity};
+        }
+
+        .skewed-view-wrapper {
+          width: 100%;
+          height: 100%;
+          transform-style: preserve-3d;
+          container-type: inline-size;
+        }
+
+        .skewed-view {
+          height: 100%;
+          width: 100%;
+          transform-style: preserve-3d;
+          transform: rotateX(calc(var(--rotate, 0) * 20deg)) 
+                     rotateZ(calc(var(--rotate, 0) * -20deg))
+                     skewX(calc(var(--rotate, 0) * 20deg));
+        }
+
+        .marquee-track {
+          display: flex;
+          width: 300%;
+          height: 100%;
+          animation: marqueeScroll ${scrollDuration}s linear infinite;
+          align-items: center;
+          gap: ${itemGap}px;
+          padding: 0 50px;
+        }
+
+        .marquee-item {
+          flex-shrink: 0;
+          width: ${itemWidth}px;
+          height: ${itemHeight}px;
+          border-radius: 16px;
+          overflow: hidden;
+          position: relative;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+          transform-origin: center;
+        }
+
+        .marquee-item__overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(45deg, 
+            rgba(93, 92, 222, 0.3) 0%, 
+            rgba(255, 107, 107, 0.3) 50%, 
+            rgba(78, 205, 196, 0.3) 100%);
+          z-index: 1;
+        }
+
+        .marquee-item__image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          filter: contrast(1.1) saturate(1.2);
+        }
+
+        @keyframes marqueeScroll {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-33.333%);
+          }
+        }
+
+        .marquee-overlay {
+          pointer-events: none;
+          position: absolute;
+          z-index: 2;
+        }
+
+        .marquee-overlay--bottom {
+          bottom: 0;
+          left: 0;
+          right: 0;
+          height: 25%;
+          background: linear-gradient(to top, #000000, transparent);
+        }
+
+        .marquee-overlay--left {
+          top: 0;
+          bottom: 0;
+          left: 0;
+          width: 25%;
+          background: linear-gradient(to right, #000000, transparent);
+        }
+
+        .marquee-overlay--top {
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 25%;
+          background: linear-gradient(to bottom, #000000, transparent);
+        }
+
+        .marquee-overlay--right {
+          top: 0;
+          bottom: 0;
+          right: 0;
+          width: 25%;
+          background: linear-gradient(to left, #000000, transparent);
+        }
+
+        @media (max-width: 768px) {
+          .marquee-container {
+            bottom: -10vh;
+            height: 50vh;
+            --rotate: 0.8;
+          }
+          
+          .marquee-item {
+            width: 140px;
+            height: 170px;
+          }
+          
+          .marquee-track {
+            gap: 20px;
+            padding: 0 30px;
+          }
+        }
+      }
