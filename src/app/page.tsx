@@ -7,10 +7,7 @@ import './globals.css';
 
 
 export default function Home() {
-  const handleContactButtonClick = () => {
-    // Simple mailto or redirect to contact page
-    window.location.href = 'mailto:hello@example.com?subject=Project Inquiry';
-  };
+
 
   // Better quality images instead of placeholders
   const portfolioImages = [
