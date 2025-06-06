@@ -23,55 +23,49 @@ export default function DiagonalImageMarquee({
 }: DiagonalImageMarqueeProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Responsive rotation adjustment
   useEffect(() => {
     const handleResize = () => {
       if (!containerRef.current) return;
-
       const isMobile = window.innerWidth <= 768;
       const intensity = isMobile ? 0.8 : rotateIntensity;
-
       containerRef.current.style.setProperty('--rotate', intensity.toString());
     };
-
     window.addEventListener('resize', handleResize);
     handleResize();
-
     return () => window.removeEventListener('resize', handleResize);
   }, [rotateIntensity]);
 
-  // Triple the images for seamless loop
   const tripleImages = [...imageUrls, ...imageUrls, ...imageUrls];
 
   return (
     <div
       ref={containerRef}
       className={`${styles.marqueeContainer} ${className}`}
-    // Optionally, you could provide more CSS vars here if your CSS uses them.
+      style={{
+
+      }}
     >
       <div className={styles.skewedViewWrapper}>
         <div className={styles.skewedView}>
           <div
             className={styles.marqueeTrack}
             style={{
-              animation: `marqueeScroll ${scrollDuration}s linear infinite`,
-              gap: `${itemGap}px`,
-              padding: "0 50px",
-            }}
+
+              '--scrollDuration': `${scrollDuration}s`,
+              '--itemGap': `${itemGap}px`,
+              '--itemWidth': `${itemWidth}px`,
+              '--itemHeight': `${itemHeight}px`
+            } as React.CSSProperties}
           >
-            {tripleImages.map((src, index) => (
+            {tripleImages.map((src, idx) => (
               <div
-                key={index}
+                key={idx}
                 className={styles.marqueeItem}
-                style={{
-                  width: `${itemWidth}px`,
-                  height: `${itemHeight}px`,
-                }}
               >
                 <div className={styles.marqueeItemOverlay} />
                 <img
                   src={src}
-                  alt={`Portfolio image ${(index % imageUrls.length) + 1}`}
+                  alt={`Marquee image ${(idx % imageUrls.length) + 1}`}
                   className={styles.marqueeItemImage}
                   loading="lazy"
                 />

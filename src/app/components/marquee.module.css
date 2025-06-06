@@ -1,5 +1,29 @@
-.marquee-track {
+.marqueeContainer {
+  position: relative;
+  width: 100vw;
+  height: 50vh;
+  overflow: hidden;
+  --rotate: 1;
+}
+
+.skewedViewWrapper {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.skewedView {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: rotateX(calc(var(--rotate, 1) * 20deg))
+    rotateZ(calc(var(--rotate, 1) * -20deg))
+    skewX(calc(var(--rotate, 1) * 20deg));
+}
+
+.marqueeTrack {
   display: flex;
+  flex-direction: row;
   width: 300%;
   height: 100%;
   align-items: center;
@@ -7,13 +31,95 @@
   gap: var(--itemGap, 30px);
   padding: 0 50px;
 }
-.marquee-item {
+
+.marqueeItem {
   flex-shrink: 0;
   border-radius: 16px;
   overflow: hidden;
   position: relative;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  transform-origin: center;
   width: var(--itemWidth, 180px);
   height: var(--itemHeight, 220px);
+  transform-origin: center;
+}
+
+.marqueeItemOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    rgba(93, 92, 222, 0.3) 0%,
+    rgba(255, 107, 107, 0.3) 50%,
+    rgba(78, 205, 196, 0.3) 100%
+  );
+  z-index: 1;
+}
+
+.marqueeItemImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: contrast(1.1) saturate(1.2);
+}
+
+.marqueeOverlay {
+  pointer-events: none;
+  position: absolute;
+  z-index: 2;
+}
+.marqueeOverlayBottom {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 25%;
+  background: linear-gradient(to top, #000000, transparent);
+}
+.marqueeOverlayLeft {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 25%;
+  background: linear-gradient(to right, #000000, transparent);
+}
+.marqueeOverlayTop {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 25%;
+  background: linear-gradient(to bottom, #000000, transparent);
+}
+.marqueeOverlayRight {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 25%;
+  background: linear-gradient(to left, #000000, transparent);
+}
+
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.333%);
+  }
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .marqueeContainer {
+    height: 50vh;
+    --rotate: 0.8;
+  }
+  .marqueeItem {
+    width: 140px !important;
+    height: 170px !important;
+  }
+  .marqueeTrack {
+    gap: 20px !important;
+    padding: 0 30px !important;
+  }
 }
