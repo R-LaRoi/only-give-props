@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ONLY GIVE PROPS
+
+OG Props is a modern sports app that features classic game props from your favorite players, letting you bet on historical performances risk-free!
+
+## Features
+
+- Animated diagonal image marquee for showcasing player props or highlights
+- Sleek, minimal black-themed UI with bold, centered typography
+- Responsive design for mobile and desktop
+
+## Tech Stack
+
+- **React** (with Next.js App Directory)
+- **TypeScript**
+- **CSS Modules** for component styling
+- **Tailwind CSS** (optional for utility classes)
+- **Unsplash** for demo images
+
+## Screenshots
+
+![Screenshot](https://github.com/user-attachments/assets/782a9e95-109c-42b1-909f-28c50e99d9b1)
 
 ## Getting Started
 
-First, run the development server:
+1. **Clone the repository**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+   ```bash
+   git clone https://github.com/your-username/only-give-props.git
+   cd only-give-props
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Install dependencies**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. **Run the development server**
 
-## Learn More
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+4. **Open [http://localhost:3000](http://localhost:3000) to view the app.**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `/src/app/page.tsx` – Main page, includes hero section and DiagonalImageMarquee
+- `/src/app/components/LandingPageHero.tsx` – Centered headline, subheadline, description, and contact button
+- `/src/app/components/DiagonalImageMarquee.tsx` – Animated, skewed image carousel
+- `/src/app/components/marquee.module.css` – Marquee-specific component styles
+- `/src/app/components/LandingPageHero.module.css` – Hero section styles
+- `/src/app/globals.css` – Global base styles
 
-## Deploy on Vercel
+## Customization
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Images:** Update the `portfolioImages` array in `page.tsx` with your own URLs.
+- **Marquee Settings:** Adjust `itemWidth`, `itemHeight`, `itemGap`, and `scrollDuration` props for different marquee effects.
+- **Contact:** The contact button opens a mailto link; you can update the address or link as needed.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+
+MIT
+
+---
+
+OG Props is not affiliated with or endorsed by any sports leagues or organizations. This is a demo project for creative and educational purposes.
