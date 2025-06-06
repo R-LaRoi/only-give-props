@@ -1,6 +1,7 @@
 'use client';
 import React, { useRef, useEffect } from 'react';
 import styles from './marquee.module.css';
+
 interface DiagonalImageMarqueeProps {
   imageUrls: string[];
   scrollDuration?: number;
@@ -43,16 +44,29 @@ export default function DiagonalImageMarquee({
   const tripleImages = [...imageUrls, ...imageUrls, ...imageUrls];
 
   return (
-    <>
-
-
+    <div
+      ref={containerRef}
+      className={`${styles.marqueeContainer} ${className}`}
+    // Optionally, you could provide more CSS vars here if your CSS uses them.
+    >
       <div className={styles.skewedViewWrapper}>
         <div className={styles.skewedView}>
-          <div className={styles.marqueeTrack}>
+          <div
+            className={styles.marqueeTrack}
+            style={{
+              animation: `marqueeScroll ${scrollDuration}s linear infinite`,
+              gap: `${itemGap}px`,
+              padding: "0 50px",
+            }}
+          >
             {tripleImages.map((src, index) => (
               <div
                 key={index}
                 className={styles.marqueeItem}
+                style={{
+                  width: `${itemWidth}px`,
+                  height: `${itemHeight}px`,
+                }}
               >
                 <div className={styles.marqueeItemOverlay} />
                 <img
@@ -71,6 +85,6 @@ export default function DiagonalImageMarquee({
       <div className={`${styles.marqueeOverlay} ${styles.marqueeOverlayLeft}`} />
       <div className={`${styles.marqueeOverlay} ${styles.marqueeOverlayTop}`} />
       <div className={`${styles.marqueeOverlay} ${styles.marqueeOverlayRight}`} />
-    </>
+    </div>
   );
 }

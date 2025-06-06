@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HI@ Visual Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&display=swap");
+
+      .hero-title {
+        font-family: "Inter", sans-serif;
+        font-weight: 900;
+        font-size: clamp(4rem, 12vw, 8rem);
+        line-height: 0.8;
+        letter-spacing: -0.02em;
+      }
+
+      .hero-subtitle {
+        font-family: "Inter", sans-serif;
+        font-weight: 700;
+        font-size: clamp(3rem, 10vw, 6rem);
+        line-height: 0.8;
+        letter-spacing: -0.01em;
+        -webkit-text-stroke: 2px white;
+        -webkit-text-fill-color: transparent;
+        -webkit-text-stroke: 2px white;
+        color: transparent;
+      }
+
+      .contact-button {
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+      }
+
+      .contact-button:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        transform: translateY(-2px);
+      }
+
+      .marquee-container {
+        position: absolute;
+        bottom: -15vh;
+        left: 0;
+        right: 0;
+        height: 60vh;
+        overflow: hidden;
+        --rotate: 1;
+      }
+
+      .skewed-view-wrapper {
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+        container-type: inline-size;
+      }
+
+      .skewed-view {
+        height: 100%;
+        width: 100%;
+        transform-style: preserve-3d;
+        transform: rotateX(calc(var(--rotate, 0) * 20deg))
+          rotateZ(calc(var(--rotate, 0) * -20deg))
+          skewX(calc(var(--rotate, 0) * 20deg));
+        transform-gpu: true;
+      }
+
+      .marquee-track {
+        display: flex;
+        width: 300%;
+        height: 100%;
+        animation: marqueeScroll 25s linear infinite;
+        align-items: center;
+        gap: 30px;
+        padding: 0 50px;
+      }
+
+      .marquee-item {
+        flex-shrink: 0;
+        width: 180px;
+        height: 220px;
+        border-radius: 16px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        transform-origin: center;
+      }
+
+      .marquee-item::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          45deg,
+          rgba(93, 92, 222, 0.3) 0%,
+          rgba(255, 107, 107, 0.3) 50%,
+          rgba(78, 205, 196, 0.3) 100%
+        );
+        z-index: 1;
+      }
+
+      .marquee-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: contrast(1.1) saturate(1.2);
+      }
+
+      @keyframes marqueeScroll {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-33.333%);
+        }
+      }
+
+      /* Gradient overlays for fade effect */
+      .marquee-overlay-bottom {
+        pointer-events: none;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 25%;
+        background: linear-gradient(to top, #000000, transparent);
+        z-index: 2;
+      }
+
+      .marquee-overlay-left {
+        pointer-events: none;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 25%;
+        background: linear-gradient(to right, #000000, transparent);
+        z-index: 2;
+      }
+
+      .marquee-overlay-top {
+        pointer-events: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 25%;
+        background: linear-gradient(to bottom, #000000, transparent);
+        z-index: 2;
+      }
+
+      .marquee-overlay-right {
+        pointer-events: none;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        width: 25%;
+        background: linear-gradient(to left, #000000, transparent);
+        z-index: 2;
+      }
+
+      .arrow-icon {
+        transition: transform 0.3s ease;
+      }
+
+      .contact-button:hover .arrow-icon {
+        transform: translateX(4px);
+      }
+
+      /* Dark mode support */
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: #000000;
+        }
+      }
+
+      /* Mobile optimizations */
+      @media (max-width: 768px) {
+        .marquee-container {
+          bottom: -10vh;
+          height: 50vh;
+          --rotate: 0.8;
+        }
+
+        .marquee-item {
+          width: 140px;
+          height: 170px;
+        }
+
+        .marquee-track {
+          gap: 20px;
+          padding: 0 30px;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-black text-white min-h-screen overflow-hidden relative">
+    <!-- Main Content -->
+    <div
+      class="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
+      <!-- Hero Section -->
+      <div class="text-center mb-8">
+        <h1 class="hero-title text-white mb-2">give</h1>
+        <h2 class="hero-subtitle">props</h2>
+      </div>
+
+      <!-- Contact Button -->
+      <button
+        class="contact-button flex items-center gap-3 px-6 py-3 border border-white/30 rounded-full text-sm font-medium tracking-wide hover:bg-white/10 transition-all duration-300 group">
+        <div
+          class="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+          <svg
+            class="arrow-icon w-4 h-4 text-black"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M7 17l9.2-9.2M17 17V7H7" />
+          </svg>
+        </div>
+        <span>CONTACT</span>
+      </button>
+    </div>
+
+    <!-- Diagonal Image Marquee -->
+    <div class="marquee-container">
+      <div class="skewed-view-wrapper">
+        <div class="skewed-view">
+          <div class="marquee-track" id="marqueeTrack">
+            <!-- Images will be generated by JavaScript -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Gradient overlays -->
+      <div class="marquee-overlay-bottom"></div>
+      <div class="marquee-overlay-left"></div>
+      <div class="marquee-overlay-top"></div>
+      <div class="marquee-overlay-right"></div>
+    </div>
+
+    <script>
+      // Dark mode detection
+      if (
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+      ) {
+        document.documentElement.classList.add("dark");
+      }
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", (event) => {
+          if (event.matches) {
+            document.documentElement.classList.add("dark");
+          } else {
+            document.documentElement.classList.remove("dark");
+          }
+        });
+
+      // Generate placeholder images for the marquee
+      function generateImage(width, height, colors, index) {
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+
+        // Create gradient background
+        const gradient = ctx.createLinearGradient(0, 0, width, height);
+        gradient.addColorStop(0, colors[0]);
+        gradient.addColorStop(0.5, colors[1]);
+        gradient.addColorStop(1, colors[2]);
+
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, width, height);
+
+        // Add some visual interest with shapes
+        ctx.save();
+        ctx.globalAlpha = 0.3;
+
+        // Add circles or rectangles based on index
+        if (index % 2 === 0) {
+          ctx.fillStyle = colors[2];
+          ctx.beginPath();
+          ctx.arc(width * 0.7, height * 0.3, width * 0.2, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          ctx.fillStyle = colors[0];
+          ctx.fillRect(width * 0.1, height * 0.1, width * 0.3, height * 0.8);
+        }
+
+        ctx.restore();
+
+        return canvas.toDataURL();
+      }
+
+      // Color schemes for different images
+      const colorSchemes = [
+        ["#FF6B6B", "#4ECDC4", "#45B7D1"],
+        ["#96CEB4", "#FFEAA7", "#DDA0DD"],
+        ["#6C5CE7", "#A29BFE", "#FD79A8"],
+        ["#E17055", "#00B894", "#0984E3"],
+        ["#FDCB6E", "#E84393", "#6C5CE7"],
+        ["#00CEC9", "#55A3FF", "#FD79A8"],
+        ["#A29BFE", "#F8B500", "#20BF6B"],
+        ["#5D5CDE", "#FF7675", "#4ECDC4"],
+      ];
+
+      // Create marquee items
+      function createMarqueeItems() {
+        const track = document.getElementById("marqueeTrack");
+        const itemCount = 21; // Triple for seamless loop
+
+        for (let i = 0; i < itemCount; i++) {
+          const item = document.createElement("div");
+          item.className = "marquee-item";
+
+          const img = document.createElement("img");
+          img.className = "marquee-image";
+          img.src = generateImage(
+            180,
+            220,
+            colorSchemes[i % colorSchemes.length],
+            i
+          );
+          img.alt = `Portfolio image ${i + 1}`;
+
+          item.appendChild(img);
+          track.appendChild(item);
+        }
+      }
+
+      // Contact button interaction
+      document
+        .querySelector(".contact-button")
+        .addEventListener("click", function () {
+          // Add a subtle animation feedback
+          this.style.transform = "scale(0.95)";
+          setTimeout(() => {
+            this.style.transform = "";
+          }, 150);
+
+          // Here you could add actual contact functionality
+          console.log("Contact button clicked");
+        });
+
+      // Initialize marquee
+      createMarqueeItems();
+
+      // Add some dynamic behavior for mobile
+      function handleResize() {
+        const isMobile = window.innerWidth < 768;
+        const marqueeContainer = document.querySelector(".marquee-container");
+
+        if (isMobile) {
+          marqueeContainer.style.setProperty("--rotate", "0.8");
+        } else {
+          marqueeContainer.style.setProperty("--rotate", "1");
+        }
+      }
+
+      window.addEventListener("resize", handleResize);
+      handleResize();
+    </script>
+  </body>
+</html>
